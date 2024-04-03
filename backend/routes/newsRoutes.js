@@ -86,6 +86,19 @@ router.get('/all', async (req, res) => {
     }
 });
 
+// latest
+router.get('/latest', async (req, res) => {
+    try {
+        // Fetch the top 5 latest news items sorted by date and time
+        const latestNews = await News.find({}).sort({ date: -1 }).limit(5).populate('image');
+
+        res.status(200).json(latestNews);
+    } catch (error) {
+        console.error('Error fetching latest news:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // get by id
 router.post('/byIds', async (req, res) => {
     try {
@@ -160,6 +173,16 @@ router.post('/delete/:_id', validateToken, async (req, res) => {
 router.get('/filter/by-category/:category', async (req, res) => {
     try {
         const items = await News.find({ category: req.params.category });
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Filter News by category
+router.get('/filter/by-status/:status', async (req, res) => {
+    try {
+        const items = await News.find({ status: req.params.status });
         res.json(items);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });

@@ -19,9 +19,9 @@ export default function page({ title, category, status, description, image, date
 
         <div className="flex flex-row mb-2">
           {/* <div className=" w-24 h-4 mr-0 flex flex-row">
-                    <FontAwesomeIcon icon={faUser} className="mr-1 p-1 text-black"/>
-                    <h6 className= "text-xs text-black">John Smith</h6>
-                  </div> */}
+            <FontAwesomeIcon icon={faUser} className="mr-1 p-1 text-black" />
+            <h6 className="text-xs text-black">John Smith</h6>
+          </div> */}
           <div className=" w-28 h-4 mr-0 flex flex-row">
             <FontAwesomeIcon icon={faCalendarAlt} className="mr-1  text-black text-xs" />
             <h6 className="text-xs text-black">{date}</h6>

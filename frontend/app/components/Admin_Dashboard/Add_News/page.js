@@ -81,6 +81,17 @@ export default function page() {
         image: null,
     });
 
+    const clearData = () => {
+        setFormData({
+            title: '',
+            category: '',
+            status: '',
+            description: '',
+            image: null,
+        })
+        setSelectedImage(null); // Clear the selected image
+    }
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -105,8 +116,11 @@ export default function page() {
         try {
             const response = await axiosInstance.post('news', formData);
             console.log('Response from server:', response.data);
+            alert(" Saved!")
+            clearData()
             // Handle success response
         } catch (error) {
+            alert("Failed to create!")
             console.error('Error sending data:', error);
             // Handle error
         }
@@ -138,7 +152,7 @@ export default function page() {
                             className='w-72'
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            name="catergory" value={formData.category} onChange={handleInputChange}
+                            name="category" value={formData.category} onChange={handleInputChange}
                         >
                             <MenuItem value='Social'>Social</MenuItem>
                             <MenuItem value='Foriegn'>Foriegn</MenuItem>
@@ -155,8 +169,8 @@ export default function page() {
                             id="demo-simple-select"
                             name="status" value={formData.status} onChange={handleInputChange}
                         >
-                            <MenuItem value='Social'>Breaking News</MenuItem>
-                            <MenuItem value='Foriegn'>Normal News</MenuItem>
+                            <MenuItem value='Breaking'>Breaking News</MenuItem>
+                            <MenuItem value='Normal'>Normal News</MenuItem>
                         </Select>
                     </div>
 
@@ -178,7 +192,7 @@ export default function page() {
 
                 <div className="flex flex-col  justify-center gap-1 my-4 mx-8 rounded-lg" role="button">
                     <h3 className="text-black mb-4">Description</h3>
-                    <textarea name="status" value={formData.status} onChange={handleInputChange} className="w-full h-64 border-2 border-slate-300 rounded-lg p-2 text-black" placeholder="Start Writing..."> </textarea>
+                    <textarea name="description" value={formData.description} onChange={handleInputChange} className="w-full h-64 border-2 border-slate-300 rounded-lg p-2 text-black" placeholder="Start Writing..."> </textarea>
                 </div>
 
                 <button className="bg-slate-700 py-2 px-6 rounded-lg my-3 mx-8" type="submit">Submit</button>
