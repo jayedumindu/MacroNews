@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '@/app/utils/axiosInstance';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -12,9 +12,9 @@ export default function page() {
 
     const columns = [
         { field: 'title', headerName: 'TITLE', width: 300 },
-        { 
-            field: 'image', 
-            headerName: 'IMAGE', 
+        {
+            field: 'image',
+            headerName: 'IMAGE',
             width: 150,
             renderCell: (params) => (
                 <img src={params.value} alt="Image" style={{ width: 100, height: 100 }} />
@@ -36,9 +36,9 @@ export default function page() {
             ),
         },
     ];
-  
+
     const rows = [
-        { id: 1, title: 'Snow',image: 'https://picsum.photos/200', category: 'Jon', description: 'lorum opergvermt ergtrytr', date: "2024/03/31", status: 'posted',    },
+        { id: 1, title: 'Snow', image: 'https://picsum.photos/200', category: 'Jon', description: 'lorum opergvermt ergtrytr', date: "2024/03/31", status: 'posted', },
     ];
 
     // -----------------------add news---------------------
@@ -50,16 +50,26 @@ export default function page() {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                setSelectedImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
+                setSelectedImage(reader.result); // Set the preview image URL
 
-        setFormData({
-            ...formData,
-            image: file,
-          });
+                // Extract contentType and filename
+                const contentType = file.type;
+                const filename = file.name;
+
+                setFormData({
+                    ...formData,
+                    image: {
+                        data: reader.result.split(',')[1], // Extract base64 string from data URL
+                        contentType: contentType,
+                        name: filename
+                    }
+                });
+            };
+            reader.readAsDataURL(file); // Read file as data URL
+        }
     };
+
+
 
     // --------------------------------
 
@@ -74,50 +84,42 @@ export default function page() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log(name, value);
         setFormData({
-          ...formData,
-          [name]: value,
+            ...formData,
+            [name]: value,
         });
     }
 
 
-    // const handleFileSelect = (e) => {
-    //     const file = e.target.files[0];
-    //     setFormData({
-    //       ...formData,
-    //       image: file,
-    //     });
-    // };
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        const formDataToSend = new FormData();
-        formDataToSend.append('title', formData.title);
-        formDataToSend.append('category', formData.category);
-        formDataToSend.append('description', formData.description);
-        formDataToSend.append('status', formData.status);
-        formDataToSend.append('image', formData.image);
-    
+
+        // const formDataToSend = new FormData();
+        // formDataToSend.append('title', formData.title);
+        // formDataToSend.append('category', formData.category);
+        // formDataToSend.append('description', formData.description);
+        // formDataToSend.append('status', formData.status);
+        // formDataToSend.append('image', formData.image);
+
         try {
-          const response = await axios.post('/api/news', formDataToSend);
-          console.log('Response from server:', response.data);
-          // Handle success response
+            const response = await axiosInstance.post('news', formData);
+            console.log('Response from server:', response.data);
+            // Handle success response
         } catch (error) {
-          console.error('Error sending data:', error);
-          // Handle error
+            console.error('Error sending data:', error);
+            // Handle error
         }
-      };
-    
+    };
+
 
 
     return (
 
         <div>
 
-        <form onSubmit={handleSubmit}>
-        <div className="flex flex-row justify-between mx-8 mt-8">
+            <form onSubmit={handleSubmit}>
+                <div className="flex flex-row justify-between mx-8 mt-8">
                     <h3 className="text-black font-semibold text-2xl">Add News</h3>
                     <div className="bg-slate-700 py-2 px-6 rounded-lg" role="button">Post</div>
                 </div>
@@ -128,48 +130,48 @@ export default function page() {
                     <input type="text" name="title" value={formData.title} onChange={handleInputChange} placeholder="News Title" className="w-full border-2 border-slate-300 rounded-lg p-2 text-black"></input>
                 </div>
 
-                
+
                 <div className="grid grid-cols-2 grid-rows-2 gap-0 m-8">
                     <div className=''>
                         <InputLabel id="demo-simple-select-label">Catergory</InputLabel>
-                        <Select 
-                        className='w-72'
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        name="catergory" value={formData.category} onChange={handleInputChange}
+                        <Select
+                            className='w-72'
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="catergory" value={formData.category} onChange={handleInputChange}
                         >
-                        <MenuItem value='Social'>Social</MenuItem>
-                        <MenuItem value='Foriegn'>Foriegn</MenuItem>
-                        <MenuItem value='Sports'>Sports</MenuItem>
-                        <MenuItem value='Business'>Business</MenuItem>
-                        <MenuItem value='Weather'>Weather</MenuItem>
+                            <MenuItem value='Social'>Social</MenuItem>
+                            <MenuItem value='Foriegn'>Foriegn</MenuItem>
+                            <MenuItem value='Sports'>Sports</MenuItem>
+                            <MenuItem value='Business'>Business</MenuItem>
+                            <MenuItem value='Weather'>Weather</MenuItem>
                         </Select>
                     </div>
                     <div className="col-start-1 row-start-2 ">
                         <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                        <Select 
-                        className='w-72'
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        name="status" value={formData.status} onChange={handleInputChange}
+                        <Select
+                            className='w-72'
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="status" value={formData.status} onChange={handleInputChange}
                         >
-                        <MenuItem value='Social'>Breaking News</MenuItem>
-                        <MenuItem value='Foriegn'>Normal News</MenuItem>
+                            <MenuItem value='Social'>Breaking News</MenuItem>
+                            <MenuItem value='Foriegn'>Normal News</MenuItem>
                         </Select>
                     </div>
 
                     <div className="row-span-2 col-start-2 row-start-1 ">
-                    <label htmlFor="file-upload" className="relative flex flex-col items-center justify-center gap-1 border-slate-300 border-2 border-dashed h-48 mx-8 rounded-lg cursor-pointer">
-                        {selectedImage ? (
-                            <img src={selectedImage} alt="Selected Image" className="absolute inset-0 w-auto h-48 object-cover rounded-lg" />
-                        ) : (
-                            <>
-                                <FontAwesomeIcon className="text-slate-500 text-6xl" icon={faUpload}></FontAwesomeIcon>
-                                <h3 className="text-slate-500">Select Image</h3>
-                            </>
-                        )}
-                        <input id="file-upload" type="file" onChange={handleFileSelect} className="hidden" accept="image/*" />
-                    </label>
+                        <label htmlFor="file-upload" className="relative flex flex-col items-center justify-center gap-1 border-slate-300 border-2 border-dashed h-48 mx-8 rounded-lg cursor-pointer">
+                            {selectedImage ? (
+                                <img src={selectedImage} alt="Selected Image" className="absolute inset-0 w-auto h-48 object-cover rounded-lg" />
+                            ) : (
+                                <>
+                                    <FontAwesomeIcon className="text-slate-500 text-6xl" icon={faUpload}></FontAwesomeIcon>
+                                    <h3 className="text-slate-500">Select Image</h3>
+                                </>
+                            )}
+                            <input id="file-upload" type="file" onChange={handleFileSelect} className="hidden" accept="image/*" />
+                        </label>
                     </div>
                 </div>
 
@@ -180,9 +182,9 @@ export default function page() {
                 </div>
 
                 <button className="bg-slate-700 py-2 px-6 rounded-lg my-3 mx-8" type="submit">Submit</button>
-                </form>
+            </form>
 
         </div>
-    
+
     )
 }

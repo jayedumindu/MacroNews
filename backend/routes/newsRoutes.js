@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const News = require('../models/news');
 const validateToken = require('../middleware');
+const Image = require('../models/image')
 
 // add
 router.post('/', validateToken, async (req, res) => {

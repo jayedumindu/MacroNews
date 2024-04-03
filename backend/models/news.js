@@ -6,6 +6,7 @@ const newsSchema = new mongoose.Schema({
     status: { type: String },
     image: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
     description: { type: String },
+    date: { type: Date, default: Date.now },
     active: { type: Boolean, default: true },
 });
 
