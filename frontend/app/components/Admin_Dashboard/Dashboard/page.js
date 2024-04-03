@@ -1,4 +1,5 @@
 import { DataGrid } from '@mui/x-data-grid';
+import { useState, useEffect } from 'react';
 
 export default function page() {
 
@@ -6,9 +7,9 @@ export default function page() {
 
     const columns = [
         { field: 'title', headerName: 'TITLE', width: 300 },
-        { 
-            field: 'image', 
-            headerName: 'IMAGE', 
+        {
+            field: 'image',
+            headerName: 'IMAGE',
             width: 150,
             renderCell: (params) => (
                 <img src={params.value} alt="Image" style={{ width: 100, height: 100 }} />
@@ -30,10 +31,30 @@ export default function page() {
             ),
         },
     ];
-  
-    const rows = [
-        { id: 1, title: 'Snow',image: 'https://picsum.photos/200', category: 'Jon', description: 'lorum opergvermt ergtrytr', date: "2024/03/31", status: 'posted',    },
-    ];
+
+    const [rows, setRows] = useState([]);
+    // const [latestData, setLatestData] = useState([]);
+
+    // get all
+    const fetchCardData = async () => {
+        try {
+            const response = await axiosInstance.get('news/all');
+            setRows(response.data); // Assuming response data is an array of objects
+        } catch (error) {
+            console.error('Error fetching card data:', error);
+        }
+    };
+
+    useEffect(() => {
+
+
+        fetchCardData();
+    }, []);
+
+
+    // const rows = [
+    //     { id: 1, title: 'Snow',image: 'https://picsum.photos/200', category: 'Jon', description: 'lorum opergvermt ergtrytr', date: "2024/03/31", status: 'posted',    },
+    // ];
 
 
     return (
@@ -67,9 +88,9 @@ export default function page() {
                         rows={rows}
                         columns={columns}
                         initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                        },
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 5 },
+                            },
                         }}
                         pageSizeOptions={[5, 10]}
                         checkboxSelection
