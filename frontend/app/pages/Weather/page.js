@@ -69,9 +69,9 @@ export default function Home() {
 
             <div className="flex flex-col w-full lg:flex-row h-auto gap-4 px-4 2xl:px-80 xl:px-64 lg:px-32">
                 <div className="lg:basis-2/3 2xl:basis-2/3 bg-white p-4">
-                    <div className="bg-slate-950 h-12 p-2 mb-4">
+                    {/* <div className="bg-slate-950 h-12 p-2 mb-4">
                         <h3 className="text-white m-1 ml-2 mb-2">Latest News</h3>
-                    </div>
+                    </div> */}
 
                     {/* <Card_1></Card_1>
 

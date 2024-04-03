@@ -82,13 +82,13 @@ export default function Home() {
 
       <div className="bg-slate-100 w-full min-h-screen grid grid-cols-6 grid-rows-1 gap-8">
         <div className="h-screen bg-white p-3 pt-32">
-          <div className={`mt-2 hover:bg-slate-200 hover:border-l-4 border-red-500 hover:shadow-md w-full h-12 p-3 px-6 ${activeItem === 'Dashboard' ? 'border-l-4 border-red-500' : ''}`} role="button" onClick={() => handleClick('Dashboard')}>
+          <div className={`mt-2 hover:bg-slate-200 hover:border-l-4 border-red-500 hover:shadow-md w-full h-12 py-3 pl-6 ${activeItem === 'Dashboard' ? 'border-l-4 border-red-500 bg-slate-100' : ''}`} role="button" onClick={() => handleClick('Dashboard')}>
             <h3 className="text-slate-700">Dashboard</h3>
           </div>
-          <div className={`mt-2 hover:bg-slate-200 hover:border-l-4 border-red-500 hover:shadow-md w-full h-12 p-3 px-6 ${activeItem === 'Add News' ? 'border-l-4 border-red-500' : ''}`} role="button" onClick={() => handleClick('Add News')}>
+          <div className={`mt-2 hover:bg-slate-200 hover:border-l-4 border-red-500 hover:shadow-md w-full h-12 py-3 pl-6 ${activeItem === 'Add News' ? 'border-l-4 border-red-500 bg-slate-100' : ''}`} role="button" onClick={() => handleClick('Add News')}>
             <h3 className="text-slate-700">Add News</h3>
           </div>
-          <div className={`mt-2 hover:bg-slate-200 hover:border-l-4 border-red-500 hover:shadow-md w-full h-12 p-3 px-6 ${activeItem === 'News Filter' ? 'border-l-4 border-red-500' : ''}`} role="button" onClick={() => handleClick('News Filter')}>
+          <div className={`mt-2 hover:bg-slate-200 hover:border-l-4 border-red-500 hover:shadow-md w-full h-12 py-3 pl-6 ${activeItem === 'News Filter' ? 'border-l-4 border-red-500 bg-slate-100' : ''}`} role="button" onClick={() => handleClick('News Filter')}>
             <h3 className="text-slate-700">News Filter</h3 >
           </div>
 

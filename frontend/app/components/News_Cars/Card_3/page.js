@@ -10,7 +10,7 @@ export default function page({ title, category, status, description, image, date
                   </div> */}
 
       <div className="py-4">
-        <h3 className="text-black text-sm mb-4">{title}</h3>
+        <h3 className="text-black text-sm mb-4 font-semibold">{title}</h3>
 
         <div className="flex flex-row mb-2">
 
@@ -24,7 +24,7 @@ export default function page({ title, category, status, description, image, date
           </div>
         </div>
         <div>
-          <h1 className="text-black text-sm">
+          <h1 className="text-black text-sm truncate-3-lines overflow-hidden h-10 md:h-16">
             {/* Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt. */}
             {description}
           </h1>

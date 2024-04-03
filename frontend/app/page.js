@@ -78,7 +78,7 @@ export default function Home() {
 
       <div className="grid grid-rows-1 grid-cols lg:grid-cols-3 lg:grid-rows-2 h-auto w-full gap-4 py-4 px-0 2xl:px-80 xl:px-64 lg:px-32">
 
-        {latestData.length > 0 ? <div className="lg:col-span-2  lg:row-span-2 h-96 lg:h-auto w-auto bg-fuchsia-400 " style={{ backgroundImage: `url(${latestData[0].image.data})` }}>
+        {latestData.length > 0 ? <div className="lg:col-span-2 bg-gray-400 lg:row-span-2 h-96 lg:h-auto md:w-auto w-screen object-cover object-center" style={{ backgroundImage: `url(${latestData[0].image.data})`, backgroundSize: 'auto', backgroundPosition: 'center',backgroundRepeat: 'no-repeat', overflow: 'hidden' }}>
           <div className="ml-6">
             <Link href="/pages/News_Article">
               <div className="bg-red-700 py-2 px-3 w-28 mt-44 md:mt-56 lg:mt-72 mb-2" role="button">
@@ -86,7 +86,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <h2 className="text-2xl mb-2">{latestData[0].title}</h2>
+            <h2 className="text-2xl mb-2 truncate-3-lines overflow-hidden text-white">{latestData[0].title}</h2>
             <div className="flex flex-row mb-2">
               <div className=" w-32 h-4 mr-0 flex flex-row">
                 <FontAwesomeIcon icon={faCalendarAlt} className="mr-1 p-0" />
@@ -98,7 +98,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h1 className="text-black text-sm">
+              <h1 className="truncate-3-lines overflow-hidden h-10 text-white text-sm">
                 {/* Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt. */}
                 {latestData[0].description}
               </h1>
@@ -108,7 +108,7 @@ export default function Home() {
 
 
 
-        {latestData.length > 1 ? <div className="row-start-2 lg:col-start-3 lg:row-start-1 w-auto bg-fuchsia-400 h-96 lg:h-56" style={{ backgroundImage: `url(${latestData[1].image.data})` }}>
+        {latestData.length > 1 ? <div className="row-start-2 lg:col-start-3 lg:row-start-1 md:w-auto w-screen bg-gray-400 h-96 lg:h-56" style={{ backgroundImage: `url(${latestData[1].image.data})`, backgroundSize: 'cover', backgroundPosition: 'center',backgroundRepeat: 'no-repeat', overflow: 'hidden'  }}>
           <div className="ml-6">
             <div className="bg-red-700 py-2 px-3 w-28 mt-44 md:mt-56 lg:mt-16 mb-2">
               {latestData[1].status}
@@ -116,45 +116,44 @@ export default function Home() {
             <h2 className="text-2xl mb-2">{latestData[1].title}</h2>
             <div className="flex flex-row mb-2">
               <div className=" w-36 h-4 mr-0 flex flex-row">
-                <FontAwesomeIcon icon={faCalendarAlt} className="mr-1 p-1" />
-                <h6 className="text-xs">{latestData[1].title}</h6>
+                <FontAwesomeIcon icon={faCalendarAlt} className="mr-1 p-0" />
+                <h6 className="text-xs">{latestData[1].date}</h6>
               </div>
-              <div className=" w-36 h-4 mr-0 flex flex-row">
-                <FontAwesomeIcon icon={faComment} className="mr-1 p-1" />
+              <div className=" w-36 h-3 mr-0 flex flex-row">
+                <FontAwesomeIcon icon={faComment} className="mr-1 p-0" />
                 <h6 className="text-xs">08 Comments</h6>
               </div>
-              <div>
-                <h1 className="text-black text-sm">
-                  {/* Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt. */}
-                  {latestData[1].description}
-                </h1>
+              
               </div>
+              <div>
+                {/* <h1 className="truncate-3-lines overflow-hidden h-10 text-white text-sm">
+                  {latestData[1].description}
+                </h1> */}
             </div>
           </div>
         </div> : null}
 
 
-        {latestData.length > 2 ? <div className="row-start-3 lg:col-start-3 lg:row-start-2 w-auto bg-fuchsia-400 h-96 lg:h-56" style={{ backgroundImage: `url(${latestData[2].image.data})` }}>
+        {latestData.length > 2 ? <div className="row-start-3 lg:col-start-3 lg:row-start-2 md:w-auto w-screen bg-gray-400 h-96 lg:h-56" style={{ backgroundImage: `url(${latestData[2].image.data})`, backgroundSize: 'cover', backgroundPosition: 'center',backgroundRepeat: 'no-repeat', overflow: 'hidden' }}>
           <div className="ml-6">
             <div className="bg-red-700 py-2 px-3 w-28 mt-44 md:mt-56 lg:mt-16 mb-2">
               {latestData[2].status}
             </div>
-            <h2 className="text-2xl mb-2"> {latestData[2].status}</h2>
+            <h2 className="text-2xl mb-2"> {latestData[2].title}</h2>
             <div className="flex flex-row mb-2">
               <div className=" w-36 h-4 mr-0 flex flex-row">
-                <FontAwesomeIcon icon={faCalendarAlt} className="mr-1 p-1" />
-                <h6 className="text-xs"> {latestData[2].status}</h6>
+                <FontAwesomeIcon icon={faCalendarAlt} className="mr-1 p-0" />
+                <h6 className="text-xs"> {latestData[2].date}</h6>
               </div>
               <div className=" w-36 h-4 mr-0 flex flex-row">
-                <FontAwesomeIcon icon={faComment} className="mr-1 p-1" />
+                <FontAwesomeIcon icon={faComment} className="mr-1 p-0" />
                 <h6 className="text-xs">08 Comments</h6>
               </div>
             </div>
             <div>
-              <h1 className="text-black text-sm">
-                {/* Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt. */}
+              {/* <h1 className="truncate-3-lines overflow-hidden h-10 text-white text-sm">
                 {latestData[2].description}
-              </h1>
+              </h1> */}
             </div>
           </div>
         </div> : null}
@@ -222,7 +221,7 @@ export default function Home() {
 
         <div className="lg:basis-1/3 bg-white p-4">
           <div className="bg-slate-950 h-12 p-2 mb-4">
-            <h3 className="text-white m-1 ml-2 mb-2">Latest News</h3>
+            <h3 className="text-white m-1 ml-2 mb-2">Breaking News</h3>
           </div>
           <div className="bg-white h-auto">
             <Card_2 {...latestData[0]}></Card_2>
