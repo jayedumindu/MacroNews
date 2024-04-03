@@ -5,7 +5,7 @@ import { faSearch, faUser, faCalendarAlt, faComment } from '@fortawesome/free-so
 export default function page({ title, category, status, description, image, date }) {
   return (
     <div id="small card" className="flex flex-col lg:flex-row  mb-4">
-      <div className="lg:basis-1/2 xl:basis-1/3 bg-slate-700 h-52 px-6" style={{ backgroundImage: `url("${image}")`, backgroundSize: 'auto', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', overflow: 'hidden' }}>
+      <div className="lg:basis-1/2 xl:basis-1/3 bg-slate-700 h-52 px-6" style={{ backgroundImage: `url("${image.data}")`, backgroundSize: 'auto', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', overflow: 'hidden' }}>
         <div className="bg-red-700 py-2 px-3 w-28 mt-28 mb-2">
           {/* News Box */}
           {category}

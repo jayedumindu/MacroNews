@@ -141,12 +141,17 @@ router.post('/update/:_id', validateToken, async (req, res) => {
 
         // Check if image is included in the request body
         if (req.body.image) {
-            // Extract image data from the request body
+
             const imageData = req.body.image;
-            // Convert base64 data to buffer
-            const buffer = Buffer.from(imageData.data, 'base64');
+            // image data should be an object --> { data, name, contentType }
+            // data --> base64 string
+
+            imageData.data = Buffer.from(imageData.data, 'base64');
+
+            // Create a new image document
+            const image = await Image.create(imageData);
             // Update the news item with the new image buffer
-            const updatedItem = await News.findByIdAndUpdate(_id, { mainImage: buffer }, { new: true });
+            const updatedItem = await News.findByIdAndUpdate(_id, { ...req.body, image }, { new: true });
             res.json(updatedItem);
         } else {
             // Update the news item with other fields
@@ -158,13 +163,16 @@ router.post('/update/:_id', validateToken, async (req, res) => {
     }
 });
 
-
 // delete by id
 router.post('/delete/:_id', validateToken, async (req, res) => {
     try {
-        await News.findOneAndUpdate({ _id: req.params._id, active: false });
+        await News.findOneAndUpdate(
+            { _id: req.params._id, active: false },
+            { $set: { active: true } }
+        );
         res.json({ message: 'News deleted successfully' });
     } catch (error) {
+        console.log(error);
         res.status(404).json({ error: 'Item not found' });
     }
 });
@@ -188,5 +196,26 @@ router.get('/filter/by-status/:status', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// get the category count
+router.get('/category-count', async (req, res) => {
+    try {
+        const categoryCounts = await News.aggregate([
+            { $match: { active: true } }, // Filter active news
+            { $group: { _id: "$category", count: { $sum: 1 } } }, // Group by category and count
+        ]);
+
+        const categoryCountMap = {};
+        categoryCounts.forEach(category => {
+            categoryCountMap[category._id] = category.count;
+        });
+
+        res.json(categoryCountMap);
+    } catch (err) {
+        console.error("Error while fetching category counts:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 
 module.exports = router;

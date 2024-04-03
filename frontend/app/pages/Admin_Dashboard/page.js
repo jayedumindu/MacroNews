@@ -1,24 +1,10 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from "next/image";
-import TextField from '@mui/material/TextField';
 import Dashboard from "../../components/Admin_Dashboard/Dashboard/page";
 import Add_News from "../../components/Admin_Dashboard/Add_News/page";
 import News_Filter from "../../components/Admin_Dashboard/News_Filter/page";
-
-import { DataGrid } from '@mui/x-data-grid';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUser, faCalendarAlt, faComment } from '@fortawesome/free-solid-svg-icons';
-
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import axiosInstance from '@/app/utils/axiosInstance';
 
